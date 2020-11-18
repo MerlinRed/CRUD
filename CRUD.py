@@ -10,7 +10,7 @@ class CRUD:
 
     def create(self):
         self.cursor.execute(
-            'CREATE TABLE records('
+            'CREATE TABLE IF NOT EXISTS records('
             'id Integer PRIMARY KEY AUTOINCREMENT,'
             'name char(30) not null,'
             'self_records text not null default "text")')
@@ -63,6 +63,10 @@ class CRUD:
             print(Error)
         self.connection.commit()
 
+    def exit(self):
+        self.connection.close()
+        exit()
+
 
 class Worker:
 
@@ -70,11 +74,8 @@ class Worker:
         self.work_with_db = CRUD()
 
     def create(self):
-        try:
-            self.work_with_db.create()
-            print('Таблица готова к работе')
-        except Error:
-            print('Таблица готова к работе')
+        self.work_with_db.create()
+        print('Таблица готова к работе')
 
     def insert(self):
         while True:
@@ -178,7 +179,8 @@ def main():
             work_with_db.delete()
             continue
         elif enter == 'exit':
-            exit()
+            escape = CRUD()
+            escape.exit()
         else:
             continue
 
