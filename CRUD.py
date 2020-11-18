@@ -70,19 +70,11 @@ class Worker:
         self.work_with_db = CRUD()
 
     def create(self):
-        while True:
-            enter_choice = input('Создать таблицу? Да | Нет: ').lower()
-            if enter_choice == 'да':
-                try:
-                    self.work_with_db.create()
-                    break
-                except Error:
-                    print('Таблица уже создана')
-                    break
-            elif enter_choice == 'нет':
-                break
-            else:
-                continue
+        try:
+            self.work_with_db.create()
+            print('Таблица готова к работе')
+        except Error:
+            print('Таблица готова к работе')
 
     def insert(self):
         while True:
@@ -162,30 +154,27 @@ class Worker:
 
 
 def main():
-    print('Для выхода введите exit')
+    print('Для выхода введите exit\n')
     work_with_db = Worker()
+    work_with_db.create()
     while True:
         enter = input('\n'
-                      '1 - Создать таблицу\n'
-                      '2 - Вставить данные в таблицу\n'
-                      '3 - Обновить данные в таблице\n'
-                      '4 - Прочесть таблицу\n'
-                      '5 - Удалить запись из таблицы\n'
+                      '1 - Вставить данные в таблицу\n'
+                      '2 - Обновить данные в таблице\n'
+                      '3 - Прочесть таблицу\n'
+                      '4 - Удалить запись из таблицы\n'
                       ': ')
         if enter == '1':
-            work_with_db.create()
-            continue
-        elif enter == '2':
             work_with_db.insert()
             continue
-        elif enter == '3':
+        elif enter == '2':
             work_with_db.update_name()
             work_with_db.update_text()
             continue
-        elif enter == '4':
+        elif enter == '3':
             work_with_db.select()
             continue
-        elif enter == '5':
+        elif enter == '4':
             work_with_db.delete()
             continue
         elif enter == 'exit':
